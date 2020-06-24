@@ -1,0 +1,23 @@
+{
+  "name": "visualisation-app",
+  "version": "1.0.0",
+  "description": "COVID-19 visualisation with React.JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paizsvirag/visualisation-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paizsvirag/visualisation-app/issues"
+  },
+  "homepage": "https://github.com/paizsvirag/visualisation-app#readme",
+  "dependencies": {
+    "csv-parser": "^2.3.3",
+    "express": "^4.17.1"
+  }
+}
