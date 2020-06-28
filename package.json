@@ -4,7 +4,8 @@
   "description": "COVID-19 visualisation with React.JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"npm run server\" \"cd client && npm start\"",
+    "server": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,11 @@
   },
   "homepage": "https://github.com/paizsvirag/visualisation-app#readme",
   "dependencies": {
+    "core-util-is": "^1.0.2",
     "csv-parser": "^2.3.3",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
   }
 }
