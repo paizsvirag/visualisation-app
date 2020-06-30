@@ -12,11 +12,15 @@ app.use(function (req, res, next) {
     next();
 });
 
-const allData = {}
+const allData = {
+    'time_series': {},
+}
 
 fs.readdirSync('./db').forEach(file => {
     const fileName = path.basename(file, '.csv')
     const filePath = path.resolve(__dirname, 'db', file);
+    const regex = new RegExp('\\d+\\/\\d+\\/\\d+')
+    const [lastFileNameWord] = fileName.split('_').slice(-1)
 
     if(path.extname(file) !== '.csv') {
         return
@@ -26,6 +30,28 @@ fs.readdirSync('./db').forEach(file => {
         .pipe(csv())
         .on('data', (data) => {
             if (Object.values(data).every(value => value === '')) {
+                return
+            }
+            if(fileName.includes('time_series')){
+                const country = data['Country/Region']
+                const province = data['Province/State'] || "Other"
+
+                if (!(country in allData.time_series)) {
+                   allData.time_series[country] = {}
+                }
+                if (!(province in allData.time_series[country])) {
+                    allData.time_series[country][province] = {
+                        'confirmed': {},
+                        'deaths': {},
+                        'recovered': {},
+                    }
+                }
+
+                for(const date in data) {
+                    if (regex.test(date)) {
+                        allData.time_series[country][province][lastFileNameWord][date] = Number(data[date])
+                    }
+                }
                 return
             }
             if (!(fileName in allData)) {
